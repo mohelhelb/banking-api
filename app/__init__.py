@@ -23,7 +23,7 @@ def create_app(config_obj=None):
     migrate.init_app(app, db)
 
     # Register the blueprints
-    from app.routes import alert, auth, recurring_expense, transaction, transfer      
+    from app import alert, auth, recurring_expense, transaction, transfer      
     app.register_blueprint(auth.bp, url_prefix="/api/auth")                      
     app.register_blueprint(recurring_expense.bp, url_prefix="/api/recurring-expenses")  
     app.register_blueprint(transfer.bp, url_prefix="/api/transfers")     
