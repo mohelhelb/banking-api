@@ -1,5 +1,5 @@
 from app import create_app
-from app.config import ConfigDevelopment
+from config_app import ConfigDevelopment
 
 app = create_app(config_obj=ConfigDevelopment)
 
