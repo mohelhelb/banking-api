@@ -6,7 +6,7 @@ class ExchangeRate:
     def __init__(self):
         self._exchange_rates = []
 
-        with open("app/exchange_rates.csv") as file:
+        with open("app/data/exchange_rates.csv") as file:
             reader = csv.DictReader(file)
             for row in reader:
                 exchange_rate = {}
@@ -34,7 +34,7 @@ class ExchangeFee:
     def __init__(self):
         self._exchange_fees = []
 
-        with open("app/exchange_fees.csv") as file:
+        with open("app/data/exchange_fees.csv") as file:
             reader = csv.DictReader(file)
             for row in reader:  
                 exchange_fee = {}
