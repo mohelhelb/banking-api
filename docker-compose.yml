@@ -13,7 +13,7 @@ services:
     environment:
       MAIL_SERVER: smtp
       MAIL_PORT: 1025
-      SQLALCHEMY_DATABASE_URI: mysql+pymysql://root:root@mysql:3306/bankingapp   
+      SQLALCHEMY_DATABASE_URI: mysql+pymysql://root:root@mysql:3306/banking   
       FLASK_APP: run_app
       FLASK_DEBUG: True
       SECRET_KEY: nkshs186771g7gsjinasi1jij34hiisijn9jj33
