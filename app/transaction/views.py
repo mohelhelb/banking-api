@@ -5,9 +5,9 @@ from flask import jsonify, request
 from marshmallow import ValidationError
 
 from app.models import Transaction
-from app.routes.transaction import bp
-from app.utils.auth import auth
-from app.utils.schemas import TransactionSchema      
+from app.transaction import bp   
+from app.schemas import TransactionSchema   
+from app.utils.auth import auth   
 
 
 ### VIEWS ######################################################################

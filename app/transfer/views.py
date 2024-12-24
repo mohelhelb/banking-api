@@ -3,11 +3,11 @@
 
 from flask import jsonify, request
 from marshmallow import ValidationError
-                                         
-from app.routes.transfer import bp
+                           
+from app.schemas import TransferSchema                 
+from app.transfer import bp  
 from app.utils.auth import auth
-from app.utils.currency import ExchangeFee, ExchangeRate
-from app.utils.schemas import TransferSchema    
+from app.utils.currency import ExchangeFee, ExchangeRate  
               
 
 ### IMPORTS ####################################################################   

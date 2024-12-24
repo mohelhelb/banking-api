@@ -3,11 +3,11 @@
 
 from flask import jsonify, request
 from marshmallow import ValidationError
-
+                           
+from app.alert import bp  
 from app.models import Alert
-from app.routes.alert import bp
-from app.utils.auth import auth
-from app.utils.schemas import AlertSchema     
+from app.schemas import AlertSchema 
+from app.utils.auth import auth    
 
 
 ### VIEWS ######################################################################  

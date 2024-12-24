@@ -3,10 +3,10 @@
 
 from flask import jsonify, request
 from marshmallow import ValidationError
-
+                           
+from app.auth import bp   
 from app.models import User
-from app.routes.auth import bp
-from app.utils.schemas import LoginSchema, RegisterSchema
+from app.schemas import LoginSchema, RegisterSchema
 
 
 ### VIEWS ######################################################################

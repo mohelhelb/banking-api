@@ -5,9 +5,9 @@ from flask import jsonify, request
 from marshmallow import ValidationError
 
 from app.models import RecurringExpense
-from app.routes.recurring_expense import bp
+from app.recurring_expense import bp 
+from app.schemas import RecurringExpenseSchema  
 from app.utils.auth import auth
-from app.utils.schemas import RecurringExpenseSchema  
 
 
 ### VIEWS ######################################################################
