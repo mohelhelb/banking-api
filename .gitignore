@@ -1,0 +1,24 @@
+
+# Ignore python bytecode and cache files:
+*__pycache__*
+*.pyc  
+
+# Ignore local environment variables:
+*.env*
+activate_venv_development   
+
+# Ignore the virtual environment directory:
+venv/ 
+
+# Ignore files and directories related to databases:
+instance/
+*.db   
+
+# Ignore configuration files related to the vim extensions:
+.flake8   
+
+# Ignore swap files and temporary directories:
+*.swp
+temp/
+
+
