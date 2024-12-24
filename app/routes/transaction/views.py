@@ -6,7 +6,7 @@ from marshmallow import ValidationError
 
 from app.models import Transaction
 from app.routes.transaction import bp
-from app.utils.helpers.auth import auth
+from app.utils.auth import auth
 from app.utils.schemas import TransactionSchema      
 
 
