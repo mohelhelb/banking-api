@@ -1,4 +1,3 @@
- 
 ### IMPORTS ####################################################################
 
 from flask import jsonify, request
@@ -59,10 +58,10 @@ def update_recurring_expense(expense_id):
             else:
                 recurring_expense.update(**validated_data)  
                 response_data = {
-                        "msg": "Recurring expense updated successfully",
+                        "msg": "Recurring expense updated successfully.",
                         "data": recurring_expense.generate_json()}  
                 return jsonify(response_data)
-    response_data = {"msg": "Expense not found."}
+    response_data = {"msg": "Recurring expense not found."}
     return jsonify(response_data), 404 
 
 
