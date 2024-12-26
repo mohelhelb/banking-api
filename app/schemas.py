@@ -135,7 +135,7 @@ class RecurringExpenseSchema(Schema):
     amount = fields.Float(required=True, validate=[PositiveNumber()])
 
     frequency = fields.String(
-            required=True,
+            required=False,
             validate=[EmptyString(allow=False), Length(max=50)]) 
 
     start_date = fields.String(required=True)
