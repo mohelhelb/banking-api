@@ -1,7 +1,7 @@
 # Financial Management
 
 ## Description
-This banking API implements key functionalities related to account management, processing recurring expenses, simulating international bank transfers involving different currencies, detecting potential fraudulent transactions, and notifying users when predefined transaction alert are triggered.
+This banking API implements key functionalities related to financial account management, processing recurring expenses, simulating international bank transfers involving different currencies, detecting potential fraudulent transactions, and notifying users when predefined transaction alerts are triggered.
 
 ## Setup
 
