@@ -33,7 +33,7 @@ class EmptyString:
 
     def __init__(self, allow=True, message=None, status_code=400):
         self._allow = allow
-        self._message = "No empty fields allowed." if not message else message
+        self._message = "This field cannot be empty." if not message else message
         self._status_code = status_code
 
     def __call__(self, value):
