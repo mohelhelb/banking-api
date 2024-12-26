@@ -14,6 +14,7 @@ from typing import List
 
 from app import bcrypt, db, mail 
 
+
 ### MODELS #####################################################################
 
 class User(db.Model):

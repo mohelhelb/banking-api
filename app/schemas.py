@@ -11,7 +11,7 @@ from marshmallow import (
 from marshmallow.validate import Email, Length
 
 from app.models import User
-from app.utils.helpers.currency import ExchangeRate
+from app.utils.currency import ExchangeRate
 
 
 ### CUSTOM VALIDATION CLASSES ##################################################   

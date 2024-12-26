@@ -11,6 +11,7 @@ bcrypt = Bcrypt()
 mail = Mail()
 migrate = Migrate()
 
+
 def create_app(config_obj=None):
     # Create and configure the application
     app = Flask(__name__)
