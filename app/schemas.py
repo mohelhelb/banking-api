@@ -40,8 +40,21 @@ class EmptyString:
         if not isinstance(value, str):
             raise Exception(f"{type(self).__name__} validator is applied only to fields of type string.")
         if not self._allow and value.strip() == "":
-            raise ValidationError({"status_code": self._status_code, "message": self._message})        
-                     
+            raise ValidationError({"status_code": self._status_code, "message": self._message})
+
+
+class PositiveNumber:
+
+    def __init__(self, message=None, status_code=400):
+        self._message = "This field must be positive."
+        self._status_code = status_code
+
+    def __call__(self, value):
+        if not isinstance(value, float):
+            raise Exception(f"{type(self).__name__} validator is applied only to fields of type float.")
+        if value <= 0:
+            raise ValidationError({"status_code": self._status_code, "message": self._message})
+
 
 ### BASE SCHEMA ################################################################
 
@@ -119,7 +132,7 @@ class RecurringExpenseSchema(Schema):
             required=True,
             validate=[EmptyString(allow=False), Length(max=255)])
 
-    amount = fields.Float(required=True)
+    amount = fields.Float(required=True, validate=[PositiveNumber()])
 
     frequency = fields.String(
             required=True,
@@ -129,7 +142,6 @@ class RecurringExpenseSchema(Schema):
 
     @validates("start_date")
     def validate_start_date(self, value):
-        """Convert the 'start_date' field into a 'datetime' object."""
         try:
             datetime.strptime(value, "%Y-%m-%d")
         except ValueError:
@@ -147,7 +159,7 @@ class TransferSchema(Schema):
             required=True,
             validate=[EmptyString(allow=False)])
 
-    amount = fields.Float(required=True)  
+    amount = fields.Float(required=True, validate=[PositiveNumber()])  
     
     @validates_schema
     def validate_currency(self, data, **kwargs):
@@ -167,17 +179,17 @@ class TransferSchema(Schema):
 ### SCHEMAS: ALERTS ############################################################
 
 class AlertSchema(Schema):
-    target_amount = fields.Float(required=True)
+    target_amount = fields.Float(required=True, validate=[PositiveNumber()])
 
-    alert_threshold = fields.Float(required=True)
+    alert_threshold = fields.Float(required=True, validate=[PositiveNumber()])
 
-    balance_drop_threshold = fields.Float(required=True)
+    balance_drop_threshold = fields.Float(required=True, validate=[PositiveNumber()])
 
 
 ### SCHEMAS: TRANSACTIONS ######################################################
 
 class TransactionSchema(Schema):
-    amount = fields.Float(required=True)
+    amount = fields.Float(required=True, validate=[PositiveNumber()])
 
     category = fields.String(
             required=True,
@@ -187,7 +199,6 @@ class TransactionSchema(Schema):
 
     @validates("timestamp")
     def validate_timestamp(self, value): 
-        """Convert the 'timestamp' field into a 'datetime' object.""" 
         try:
             datetime.strptime(value, "%Y-%m-%dT%H:%M:%SZ")
         except ValueError:
