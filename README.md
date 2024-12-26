@@ -6,24 +6,24 @@ This banking API implements key functionalities related to account management, p
 ## Setup
 
 - Clone the GitHub repository into your chosen directory (e.g. *~/projects/*):
-  ~~~	
-  mkdir -p ~/projects/ && cd ~/projects/
-  ~~~
-  ~~~
-  git clone git@github.com:mohelhelb/banking-api.git
-  ~~~
+    ~~~	
+    mkdir -p ~/projects/ && cd ~/projects/
+    ~~~
+    ~~~
+    git clone git@github.com:mohelhelb/banking-api.git
+    ~~~
 
 - Change working directory:
-  ~~~
-  cd ~/projects/pyblog/
-  ~~~
+    ~~~
+    cd ~/projects/pyblog/
+    ~~~
 
 - Run the application:
-~~~
-docker compose build
-~~~	
-~~~
-docker compose up
-~~~
+    ~~~
+    docker compose build
+    ~~~	
+    ~~~
+    docker compose up
+    ~~~
 
 
