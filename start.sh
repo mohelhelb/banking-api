@@ -31,4 +31,4 @@ flask db upgrade
 
 # Start Flask application
 echo "Starting Flask application..."
-exec flask run --host=0.0.0.0 --port=3000
+exec flask run --host=0.0.0.0 --port=5000

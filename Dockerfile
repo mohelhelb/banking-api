@@ -17,8 +17,8 @@ COPY . .
 # Make the start script executable
 RUN chmod +x start.sh
 
-# Expose port 3000
-EXPOSE 3000
+# Expose port 5000
+EXPOSE 5000
 
 # Execute the start script
 CMD ["./start.sh"]
