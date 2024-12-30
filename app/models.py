@@ -105,10 +105,10 @@ class User(db.Model):
             statement = {}
             month = f"{str(date[0])}-{str(date[1]).zfill(2)}"
             recurring_expense = base[date]
-            expected_balance = round(balance - recurring_expense, 2)
+            balance = round(balance - recurring_expense, 2)
             statement["month"] = month
             statement["recurring_expense"] = recurring_expense
-            statement["expected_balance"] = expected_balance
+            statement["expected_balance"] = balance
             statements.append(statement)
         return statements  
 
