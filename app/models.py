@@ -1,6 +1,7 @@
 
 ### IMPORTS ####################################################################
 
+import calendar
 import jwt
 import statistics
 
@@ -95,22 +96,18 @@ class User(db.Model):
 
     def projection(self):
         balance = self.balance
-        statements = []
-        base = {(dt.year, dt.month): 0.00 for dt in self._generate_following_months()}
-        for expense in self.recurring_expenses:
-            for date in base:
-                if date >= expense.due_date:
-                    base[date] += expense.amount
-        for date in base:
-            statement = {}
-            month = f"{str(date[0])}-{str(date[1]).zfill(2)}"
-            recurring_expense = base[date]
-            balance = round(balance - recurring_expense, 2)
-            statement["month"] = month
-            statement["recurring_expense"] = recurring_expense
-            statement["expected_balance"] = balance
-            statements.append(statement)
-        return statements  
+        yearly_projection = []
+        for date in self._generate_following_months():
+            monthly_projection = {}
+            monthly_projection["month"] = date.strftime("%Y-%m")
+            monthly_projection["recurring_expense"] = 0.0
+            for expense in self.recurring_expenses:
+                monthly_projection["recurring_expense"] += expense.expected_amount_in(year=date.year, month=date.month)
+            balance = round(balance - monthly_projection["recurring_expense"], 2)
+            monthly_projection["expected_balance"] = balance
+            monthly_projection["recurring_expense"] = round(monthly_projection["recurring_expense"], 2)
+            yearly_projection.append(monthly_projection)
+        return yearly_projection
 
     def _send_email(self, alert_balance=None):
         msg = Message(
@@ -174,7 +171,27 @@ class RecurringExpense(db.Model):
 
     def delete(self):
         db.session.delete(self)
-        db.session.commit()  
+        db.session.commit()
+
+    def expected_amount_in(self, month=None, year=None):
+        start_day = self.start_date.day
+        start_month = self.start_date.month
+        start_year = self.start_date.year
+        if (year, month) < (start_year, start_month):
+            return 0.00
+        elif (year, month) == (start_year, start_month):
+            # Number of days in the month corresponding to 'start_date'
+            _, num_days = calendar.monthrange(start_year, start_month)
+            #
+            initial_date = datetime(start_year, start_month, start_day)
+            final_date = initial_date + relativedelta(months=1)
+            final_date = datetime(final_date.year, final_date.month, 1)
+            # Number of days left till the end of the month
+            lapse = final_date - initial_date
+            days = lapse.days if lapse.days else 1
+            return days * self.amount / num_days
+        elif (year, month) > (start_year, start_month):
+            return self.amount
 
     @classmethod
     def filter_expenses_by(cls, id=None, user=None):
@@ -189,7 +206,7 @@ class RecurringExpense(db.Model):
         data["amount"] = self.amount
         data["frequency"] = self.frequency
         data["start_date"] = self.start_date.strftime("%Y-%m-%d")
-        return data  
+        return data 
 
     def update(self, expense_name=None, amount=None, frequency=None, start_date=None):
         if expense_name:
