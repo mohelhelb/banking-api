@@ -156,11 +156,7 @@ class RecurringExpense(db.Model):
     @validates("start_date")
     def validate_start_date(self, _, value):
         """Transform the 'start_date' field into a 'datetime' object."""
-        return datetime.strptime(value, "%Y-%m-%d")  
-
-    @property
-    def due_date(self):
-        return self.start_date.year, self.start_date.month  
+        return datetime.strptime(value, "%Y-%m-%d") 
 
     def __repr__(self):
         return f"{type(self).__name__}(id='{self.id}', user_id='{self.user_id}')"      
