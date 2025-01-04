@@ -56,7 +56,11 @@ class User(db.Model):
 
     def _avg_spending(self):
         spendings = [transaction.amount for transaction in self.transactions]
-        return statistics.mean(spendings) if spendings else 0  
+        return statistics.mean(spendings) if spendings else 0
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
 
     @classmethod
     def filter_users_by(cls, email=None):  

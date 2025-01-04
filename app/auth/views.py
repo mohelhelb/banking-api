@@ -6,6 +6,7 @@ from marshmallow import ValidationError
 from app.auth import bp   
 from app.models import User
 from app.schemas import LoginSchema, RegisterSchema
+from app.utils.auth import auth
 
 
 ### VIEWS ######################################################################
@@ -44,3 +45,12 @@ def login():
         user = User.filter_users_by(email=validated_data["email"])  
         response_data = user.generate_jwt() 
         return jsonify(response_data)  
+
+
+@bp.route("/unregister")
+@auth.login_required
+def unregister():
+    user = auth.current_user()
+    user.delete()
+    response_data = {"msg": "Account deleted successfully."}
+    return jsonify(response_data)
