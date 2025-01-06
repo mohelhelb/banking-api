@@ -16,7 +16,7 @@ from app.utils.currency import ExchangeRate
 
 ### CUSTOM VALIDATION CLASSES ##################################################   
 
-class Account:
+class EmailAddress:
 
     def __init__(self, exist=False):
         self._exist = exist
@@ -92,7 +92,7 @@ class RegisterSchema(Schema):
                 EmptyString(allow=False),
                 Length(max=128),
                 Email(),
-                Account(exist=False)]) 
+                EmailAddress(exist=False)]) 
 
     password = fields.String(
             required=True,
@@ -108,7 +108,7 @@ class LoginSchema(Schema):
                 EmptyString(allow=False, message="Bad credentials.", status_code=401),
                 Length(max=128),
                 Email(),
-                Account(exist=True)]) 
+                EmailAddress(exist=True)]) 
 
     password = fields.String(
             required=True,
@@ -132,7 +132,7 @@ class UpdateSchema(Schema):
                 EmptyString(allow=False),
                 Length(max=128),
                 Email(),
-                Account(exist=False)]) 
+                EmailAddress(exist=False)]) 
 
     password = fields.String(
             required=False,
