@@ -5,7 +5,7 @@ from marshmallow import ValidationError
                            
 from app.auth import bp   
 from app.models import User
-from app.schemas import LoginSchema, RegisterSchema
+from app.schemas import LoginSchema, RegisterSchema, UpdateSchema
 from app.utils.auth import auth
 
 
@@ -46,6 +46,28 @@ def login():
         response_data = user.generate_jwt() 
         return jsonify(response_data)  
 
+
+@bp.route("/update", methods=["POST"])
+@auth.login_required
+def update():
+    request_data = request.get_json()
+    schema = UpdateSchema()
+    try:
+        validated_data = schema.load(request_data)
+    except ValidationError as err:
+        if err.messages.get(400):
+            response_data = err.messages[400]
+            return jsonify(response_data), 400
+        if err.messages.get(401): 
+            response_data = err.messages[401] 
+            return jsonify(response_data), 401
+    else:
+        print(validated_data)
+        user = auth.current_user() 
+        user.update(**validated_data)
+        response_data = {"msg": "Account updated successfully."}
+        return jsonify(response_data)  
+    
 
 @bp.route("/unregister")
 @auth.login_required

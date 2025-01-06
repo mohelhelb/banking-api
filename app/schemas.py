@@ -125,6 +125,30 @@ class LoginSchema(Schema):
             raise ValidationError({"password": [{"status_code": 401, "message": "Bad credentials."}]})  
 
 
+class UpdateSchema(Schema): 
+    email = fields.String(
+            required=False,
+            validate=[
+                EmptyString(allow=False),
+                Length(max=128),
+                Email(),
+                Account(exist=False)]) 
+
+    password = fields.String(
+            required=False,
+            validate=[
+                EmptyString(allow=False),
+                Length(max=128)])  
+
+    @validates_schema
+    def validate_data(self, data, **kwargs):
+        email = data.get("email")
+        password = data.get("password")
+        if not email and not password:
+            message = "At least an email or password is required."
+            raise ValidationError({"Error": [{"status_code": 400, "message": message}]})  
+
+
 ### SCHEMAS: RECURRING EXPENSES ################################################   
 
 class RecurringExpenseSchema(Schema):

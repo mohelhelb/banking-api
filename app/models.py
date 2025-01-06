@@ -134,10 +134,14 @@ class User(db.Model):
             sd = 0
         return sd   
 
-    def update(self, balance=None):
+    def update(self, balance=None, email=None, password=None):
         if balance:
             self.balance = balance
-            db.session.commit()  
+        if email:
+            self.email = email
+        if password:
+            self.password = password
+        db.session.commit()
                     
     def verify_password(self, password=None):
         if password:
